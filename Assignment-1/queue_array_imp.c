@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
+#define MAX_ARRAY_LEN 10000
 
 // A structure to represent a queue
 struct QueueArray {
@@ -134,10 +135,11 @@ int getArrayImpChoice ( void ) {
 	printf("\t2. Input into Array Queue from command line (Single Element)\n");
 	printf("\t3. Remove element from Array Queue (Single Element)\n");
     */
-	printf("\t1. add element\n");
-	printf("\t2. delete element\n");
-	printf("\t3. display\n");
-	printf("\t4. Press 0 to return main menu\n");	
+	printf("\t1. add single element\n");
+	printf("\t2. add elements using file\n");
+	printf("\t3. delete element\n");
+	printf("\t4. display\n");
+	printf("\t5. Press 0 to return main menu\n");	
     
     // read back user inputs
 	printf("\nSelect an option: ");
@@ -154,38 +156,50 @@ int getArrayImpChoice ( void ) {
  
 void ArrayImpMain (void) {
 	int choice;
-    struct QueueArray* queue = CreateQueueArray(10);
-    int item;
+    int value;
+    struct QueueArray* queue = CreateQueueArray(MAX_ARRAY_LEN);
+    /* 
     enqueue(queue, 10);
     enqueue(queue, 20);
     enqueue(queue, 30);
     enqueue(queue, 35);
-    item = dequeue(queue);
-    printf("dequeu done of %d ..\n", item);
+    value = dequeue(queue);
+    printf("dequeu done of %d ..\n", value);
     enqueue(queue, 40);
     enqueue(queue, 50);
     display_Array(queue);
-#if 0
-    choice = getArrayImpChoice();
+    */
+    
 	do {
    	
+        choice = getArrayImpChoice();
 		switch(choice) {
 			case 1:
+                printf("\nEnter the value to insert: ");
+                scanf("%d", & value);
+                enqueue(queue, value);
+                break;
 			case 2: 
-			case 3: 
-				printf("choice entered: %d\n", choice);
+                printf("\nEnter the filename to insert elements: TBD");
+                break;
+			case 3:
+                printf("Delete an element is :%d\n", dequeue(queue));
+                break;
+			case 4:
+				printf("\ndisplay elements of queue:\n");
+                display_Array(queue);
 				break;
 
-			case 0: 
+			case 0:
                 printf("moving back to main menu\n");
 				break;
 
-			default: 
+			default:
 				printf("Please enter a valid choice\n");
 				break;
 		}
 		printf("\n");
 
 	} while(choice != 0);
-#endif
+
 }
