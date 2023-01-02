@@ -158,18 +158,7 @@ void ArrayImpMain (void) {
 	int choice;
     int value;
     struct QueueArray* queue = CreateQueueArray(MAX_ARRAY_LEN);
-    /* 
-    enqueue(queue, 10);
-    enqueue(queue, 20);
-    enqueue(queue, 30);
-    enqueue(queue, 35);
-    value = dequeue(queue);
-    printf("dequeu done of %d ..\n", value);
-    enqueue(queue, 40);
-    enqueue(queue, 50);
-    display_Array(queue);
-    */
-    
+   
 	do {
    	
         choice = getArrayImpChoice();
