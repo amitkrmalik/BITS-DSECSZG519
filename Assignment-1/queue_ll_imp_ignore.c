@@ -18,60 +18,86 @@
 # include <stdio.h>
 #include <stdlib.h>
 
-// Structure to create a node with data and the next pointer
-struct node {
-    int data;
-    struct node * next;
+
+//Linked Linked [LL] Node
+struct QNode {
+    int key;
+    struct QNode* next;
 };
 
-struct node * front = NULL;
-struct node * rear = NULL;
+struct Queue {
+    struct QNode *front, *rear;
+};
 
-// EnqueueLL() operation on a queue
-void enqueueLL(int value) {
-    struct node * ptr;
-    ptr = (struct node * ) malloc(sizeof(struct node));
-    ptr -> data = value;
-    ptr -> next = NULL;
-    if ((front == NULL) && (rear == NULL)) {
-        front = rear = ptr;
-    } else {
-        rear -> next = ptr;
-        rear = ptr;
-    }
-    printf("Node is Inserted\n\n");
+struct QNode* newNode(int k)
+{
+    struct QNode* temp
+        = (struct QNode*)malloc(sizeof(struct QNode));
+    temp->key = k;
+    temp->next = NULL;
+    return temp;
+}
+ 
+// A utility function to create an empty queue
+struct Queue* createQueue()
+{
+    struct Queue* q
+        = (struct Queue*)malloc(sizeof(struct Queue));
+    q->front = q->rear = NULL;
+    return q;
 }
 
-// dequeueLL() operation on a queue
-int dequeueLL() {
-    if (front == NULL) {
-        printf("\nUnderflow\n");
-        return -1;
-    } else {
-        struct node * temp = front;
-        int temp_data = front -> data;
-        front = front -> next;
-        free(temp);
-        return temp_data;
+// The function to add a key k to q
+void enQueue(struct Queue* q, int k)
+{
+    // Create a new LL node
+    struct QNode* temp = newNode(k);
+ 
+    // If queue is empty, then new node is front and rear
+    // both
+    if (q->rear == NULL) {
+        q->front = q->rear = temp;
+        return;
     }
+ 
+    // Add the new node at the end of queue and change rear
+    q->rear->next = temp;
+    q->rear = temp;
+}
+ 
+// Function to remove a key from given queue q
+void deQueue(struct Queue* q)
+{
+    // If queue is empty, return NULL.
+    if (q->front == NULL)
+        return;
+ 
+    // Store previous front and move front one node ahead
+    struct QNode* temp = q->front;
+ 
+    q->front = q->front->next;
+ 
+    // If front becomes NULL, then change rear also as NULL
+    if (q->front == NULL)
+        q->rear = NULL;
+ 
+    free(temp);
 }
 
-// displayLL all elements of the queue
-void displayLL() {
-    struct node * temp;
-    if ((front == NULL) && (rear == NULL)) {
-        printf("\nQueue is Empty\n");
-    } else {
-        printf("The queue is \n");
-        temp = front;
-        while (temp) {
-            printf("%d--->", temp -> data);
-            temp = temp -> next;
-        }
-        printf("NULL\n\n");
-    }
-}
+int display_queue(struct Queue* q)
+{
+    struct Queue* last = NULL;
 
+	while (q != NULL) {
+		printf("%d->", q->key);
+		last = q;
+		q = q->next;
+	}
+	if (q == NULL)
+		printf("NULL\n");
+   
+}
+/
 /* 
  * Function name: getChoice
  *  collects user choice to move forward with various inputs and process steps.
@@ -95,7 +121,7 @@ int getLLImpChoice ( void ) {
  	printf("\t1. add single element\n");
 	printf("\t2. add elements using file\n");
 	printf("\t3. delete element\n");
-	printf("\t4. displayLL\n");
+	printf("\t4. display\n");
 	printf("\t5. Press 0 to return main menu\n");	
  
     // read back user inputs
@@ -114,6 +140,7 @@ int getLLImpChoice ( void ) {
 void LLImpMain (void) {
 	int choice;
 	int value;
+	struct Queue* q = createQueue();
 
 	do {
 		choice = getLLImpChoice();
@@ -122,15 +149,13 @@ void LLImpMain (void) {
 			case 1:
                 printf("\nEnter the value to insert: ");
                 scanf("%d", & value);
-                enqueueLL(value);
+                enqueue(q, value);
                 break;
 			case 2: 
 			case 3: 
-                value = dequeueLL();
-                printf("popped value: %d\n", value);
 				break;
 			case 4: 
-				displayLL();
+				display_queue(q);
 				break;
 			case 5: 
 			case 6: 
