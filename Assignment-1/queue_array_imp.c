@@ -79,6 +79,23 @@ int is_full_QA(Queue *q) {
 
 int size_QA(Queue *q) {
 	return (q->rear - q->front);
+}
+
+int main (void) {
+    Queue *q = init_QA();
+    push_QA(q, 1);
+    push_QA(q, 2);
+    push_QA(q, 3);
+    printf("%d\n", pop_QA(q));  // prints 1
+    printf("%d\n", pop_QA(q));  // prints 2
+    printf("%d\n", pop_QA(q));  // prints 3
+
+    free (q);
+    return (0);
+}
+
+
+#if 0    
 /* 
  * Function name: main
  *  Iterate over the user choice to move the program
@@ -125,3 +142,4 @@ void ArrayImpMain (void) {
 	// Free up the allocations done during the program
     free (q);
 }
+#endif

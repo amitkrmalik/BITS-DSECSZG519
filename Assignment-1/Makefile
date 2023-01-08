@@ -17,5 +17,4 @@ clean :
 	rm assignment
 
 assignment :
-	gcc main.c queue_array_imp.c queue_ll_imp.c bst.c -o assignment
-	./assignment
+	gcc -Wall -pg queue_array_imp.c -o assignment
