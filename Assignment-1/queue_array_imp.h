@@ -15,6 +15,21 @@
  Output: 
 ----------------------------------------------------------------------------
 */
+#define MAX_ARRAY_SIZE 10000 // Max array length supported
 
-void ArrayImpMain (void);
 
+typedef struct queue {
+    int items[MAX_ARRAY_SIZE];  // array where data shall be stored.
+    int front; // Front element of the queue
+	int rear;  // end element of the queue
+} Queue;
+
+
+
+Queue* init_QA();
+void push_QA(Queue *q, int value);
+int pop_QA(Queue *q);
+int is_empty_QA(Queue *q);
+int is_full_QA(Queue *q);
+int size_QA(Queue *q);
+void display_queue(Queue *q);

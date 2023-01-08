@@ -22,22 +22,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-
+#include "queue_array_imp.h"
 
 /*---------------------------------------------------------------------------
             Constant definitions section
 -----------------------------------------------------------------------------*/
-#define MAX_ARRAY_SIZE 10000 // Max array length supported
 
 
 /*---------------------------------------------------------------------------
             Global variables and defintiions
 -----------------------------------------------------------------------------*/
-typedef struct queue {
-    int items[MAX_ARRAY_SIZE];  // array where data shall be stored.
-    int front; // Front element of the queue
-	int rear;  // end element of the queue
-} Queue;
 
 
 /* 
@@ -81,19 +75,14 @@ int size_QA(Queue *q) {
 	return (q->rear - q->front);
 }
 
-int main (void) {
-    Queue *q = init_QA();
-    push_QA(q, 1);
-    push_QA(q, 2);
-    push_QA(q, 3);
-    printf("%d\n", pop_QA(q));  // prints 1
-    printf("%d\n", pop_QA(q));  // prints 2
-    printf("%d\n", pop_QA(q));  // prints 3
-
-    free (q);
-    return (0);
+void display_queue(Queue *q) {
+    int i = 0;
+    printf("Queue: ");
+    for (i = q->front; i <= q->rear; i++) {
+        printf("%d -> ", q->items[i]);
+    }
+    printf("\n");
 }
-
 
 #if 0    
 /* 
