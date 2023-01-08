@@ -43,10 +43,11 @@ int main(int argc, char* argv[]) {
     while (fgets(line, MAX_LINE_LENGTH, file)) {
         char* field = strtok(line, ",");
         int i = atoi(field);
-        printf("string: %s: decimal : %d\n", field,i);
+        // printf("string: %s: decimal : %d\n", field,i);
         push_QA(q, i);
     }
-    display_queue(q);
+    // display_queue(q);
+    printf("element 652876767: %d\n", search_element_QA(q, 652876767));
 
     fclose(file);
     return 0;

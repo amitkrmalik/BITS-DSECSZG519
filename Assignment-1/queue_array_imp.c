@@ -75,6 +75,17 @@ int size_QA(Queue *q) {
 	return (q->rear - q->front);
 }
 
+
+int search_element_QA(Queue *q, int value) {
+    int i = 0;
+    for (i = q->front; i <= q->rear; i++) {
+        if (q->items[i] == value) {
+            return (1);
+        }
+    }
+    return (0);
+}
+
 void display_queue(Queue *q) {
     int i = 0;
     printf("Queue: ");

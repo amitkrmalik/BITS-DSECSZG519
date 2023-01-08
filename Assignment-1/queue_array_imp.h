@@ -15,7 +15,7 @@
  Output: 
 ----------------------------------------------------------------------------
 */
-#define MAX_ARRAY_SIZE 10000 // Max array length supported
+#define MAX_ARRAY_SIZE 10000000 // Max array length supported
 
 
 typedef struct queue {
@@ -33,3 +33,4 @@ int is_empty_QA(Queue *q);
 int is_full_QA(Queue *q);
 int size_QA(Queue *q);
 void display_queue(Queue *q);
+int search_element_QA(Queue *q, int value);

@@ -17,4 +17,4 @@ clean :
 	rm assignment
 
 assignment :
-	gcc -Wall -pg queue_array_imp.c -o assignment
+	gcc -Wall -pg helper.c queue_array_imp.c -o assignment
