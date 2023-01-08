@@ -15,138 +15,70 @@
  Output: 
 ----------------------------------------------------------------------------
 */
-# include <stdio.h>
+
+/*---------------------------------------------------------------------------
+            Headers section
+-----------------------------------------------------------------------------*/
+#include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 
-#define MAX_ARRAY_LEN 10000
 
-// A structure to represent a queue
-struct QueueArray {
-    int front;              // Front of the queue
-    int rear;               // Rear of the queue
-    int size;               // actual size of data
-    unsigned capacity;      // Max capacity of queue
-    int* array;             // Array pointer
-};
-
-// function to create a queue
-// of given capacity.
-// It initializes size of queue as 0
-struct QueueArray* CreateQueueArray(unsigned capacity)
-{
-    struct QueueArray* queue = (struct QueueArray*)malloc(
-        						sizeof(struct QueueArray));
-    queue->capacity = capacity;
-    
-    queue->front = -1;
-    queue->rear = -1;
-	queue->size = 0;
- 
-    queue->array = (int*)malloc(
-        queue->capacity * sizeof(int));
-    return queue;
-}
+/*---------------------------------------------------------------------------
+            Constant definitions section
+-----------------------------------------------------------------------------*/
+#define MAX_ARRAY_SIZE 10000 // Max array length supported
 
 
-// Queue is full when size becomes
-// equal to the capacity
-int isFull(struct QueueArray* queue)
-{
-    return (queue->rear == (queue->capacity - 1));
-}
- 
-// Queue is empty when size is 0
-int isEmpty(struct QueueArray* queue)
-{
-    return (queue->front == -1 || queue->front > queue->rear);
-}
+/*---------------------------------------------------------------------------
+            Global variables and defintiions
+-----------------------------------------------------------------------------*/
+typedef struct queue {
+    int items[MAX_ARRAY_SIZE];  // array where data shall be stored.
+    int front; // Front element of the queue
+	int rear;  // end element of the queue
+} Queue;
 
 
-// Function to add an item to the queue.
-// It changes rear and size
-void enqueue(struct QueueArray* queue, int item)
-{
-    if (isFull(queue)) {
-		printf("queue if full: Overflow\n");
-        return;
-	}
-
-	/* For first element 
-	 * front = -1 and rear = -1 then set
-     * front = 0 and rear = 0 otherwise increment rear alone
-	 */
-	if (queue->front == -1 && queue->rear== -1){
-		queue->front = 0;
-		queue->rear=0;
-		queue->size == 0;
-	} else {
-	    queue->rear++;
-		queue->size++;
-	} 
-
-	// Insert element at rear
-    queue->array[queue->rear] = item;
-    printf("%d enqueued to queue\n", item);
-}
-
-// Function to remove an item from queue.
-// It changes front and size
-int dequeue(struct QueueArray* queue)
-{
-    if (isEmpty(queue))
-        return INT_MIN;
-    int item = queue->array[queue->front];
-	if (queue->front == queue->rear) {
-		queue->front = -1;
-		queue->rear = -1;
-	} else {
-		queue->front++;
-		queue->size--;
-	}
-    return item;
-}
-
-int display_Array(struct QueueArray* queue)
-{
-    int i = 0;
-	if (queue->front == -1) {
-		printf ("queue is empty..\n");
-		return;
-	} else {
-    	printf("Elements are:..\n");
-		for(i = queue->front; i <= queue->rear; i++) {
-			printf("%d, ",queue->array[i]);
-		}
-	}
-	
-}
 /* 
- * Function name: getChoice
- *  collects user choice to move forward with various inputs and process steps.
+ * Function name: init_QA
+ *  initialise the queue to start storing the data.
  * Input Args: None
- * return: integer choice
+ * return: None
  */ 
-
-int getArrayImpChoice ( void ) {
-	int choice;
-    /*
-	printf("\t1. Input into Array Queue from File (Multiple elements)\n");
-	printf("\t2. Input into Array Queue from command line (Single Element)\n");
-	printf("\t3. Remove element from Array Queue (Single Element)\n");
-    */
-	printf("\t1. add single element\n");
-	printf("\t2. add elements using file\n");
-	printf("\t3. delete element\n");
-	printf("\t4. display\n");
-	printf("\t5. Press 0 to return main menu\n");	
-    
-    // read back user inputs
-	printf("\nSelect an option: ");
-	scanf("%d", &choice);
-	return choice;
-}
  
+Queue* init_QA() {
+    Queue *q = malloc(sizeof(Queue));
+    q->front = 0;
+    q->rear = MAX_ARRAY_SIZE - 1;
+    return q;
+}
+
+void push_QA(Queue *q, int value) {
+    if (q->rear == MAX_ARRAY_SIZE - 1) {
+        q->rear = -1;
+    }
+    q->items[++q->rear] = value;
+}
+
+int pop_QA(Queue *q) {
+    int value = q->items[q->front++];
+    if (q->front == MAX_ARRAY_SIZE) {
+        q->front = 0;
+    }
+    return value;
+}
+
+int is_empty_QA(Queue *q) {
+    return q->front > q->rear;
+}
+
+int is_full_QA(Queue *q) {
+    return q->rear - q->front == MAX_ARRAY_SIZE - 1;
+}
+
+int size_QA(Queue *q) {
+	return (q->rear - q->front);
 /* 
  * Function name: main
  *  Iterate over the user choice to move the program
@@ -190,5 +122,6 @@ void ArrayImpMain (void) {
 		printf("\n");
 
 	} while(choice != 0);
-
+	// Free up the allocations done during the program
+    free (q);
 }
