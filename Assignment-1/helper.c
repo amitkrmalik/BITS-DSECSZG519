@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "queue_array_imp.h"
+#include "queue_ll_imp.h"
 
 #define MAX_LINE_LENGTH 1024
 
@@ -37,17 +38,20 @@ int main(int argc, char* argv[]) {
     /*
      * Initialise various methods here
      */
-    Queue *q = init_QA();
+    Queue *qA = init_QA();
+    QueueLL *qLL = create_queueLL();
 
     char line[MAX_LINE_LENGTH];
     while (fgets(line, MAX_LINE_LENGTH, file)) {
         char* field = strtok(line, ",");
         int i = atoi(field);
         // printf("string: %s: decimal : %d\n", field,i);
-        push_QA(q, i);
+        push_QA(qA, i);
+        enqueueLL(qLL, i);
     }
-    // display_queue(q);
-    printf("element 652876767: %d\n", search_element_QA(q, 652876767));
+    // display_queue(qA);
+    display_queueLL(qLL);
+    printf("element 652876767: %d\n", search_element_QA(qA, 652876767));
 
     fclose(file);
     return 0;
