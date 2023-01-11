@@ -50,8 +50,9 @@ int main(int argc, char* argv[]) {
         enqueueLL(qLL, i);
     }
     // display_queue(qA);
-    display_queueLL(qLL);
-    printf("element 652876767: %d\n", search_element_QA(qA, 652876767));
+    // display_queueLL(qLL);
+    printf("element 652876767: %d\n", search_elementQA(qA, 652876767));
+    printf("element 652876767: %d\n", search_elementLL(qA, 652876767));
 
     fclose(file);
     return 0;

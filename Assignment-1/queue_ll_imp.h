@@ -33,3 +33,4 @@ void enqueueLL(QueueLL *q, int value);
 int dequeueLL(QueueLL *q);
 int is_emptyLL(QueueLL *q);
 void display_queueLL(QueueLL *q);
+int search_elementLL(QueueLL *q, int value);

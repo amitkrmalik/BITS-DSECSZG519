@@ -79,3 +79,14 @@ void display_queueLL(QueueLL *q) {
     }
     printf("\n");
 }
+
+int search_elementLL(QueueLL *q, int value) {
+    Node *curr = q->front;
+    while (curr != NULL) {
+        curr = curr->next;
+        if (curr->data == value) {
+            return (1);
+        }
+    }
+    return(0);
+}

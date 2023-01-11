@@ -76,7 +76,7 @@ int size_QA(Queue *q) {
 }
 
 
-int search_element_QA(Queue *q, int value) {
+int search_elementQA(Queue *q, int value) {
     int i = 0;
     for (i = q->front; i <= q->rear; i++) {
         if (q->items[i] == value) {
