@@ -46,13 +46,21 @@ int main(int argc, char* argv[]) {
         char* field = strtok(line, ",");
         int i = atoi(field);
         // printf("string: %s: decimal : %d\n", field,i);
-        push_QA(qA, i);
-        enqueueLL(qLL, i);
+        if (search_elementQA(qA, i)) {
+            push_QA(qA, i);
+        }
+        if (search_elementLL(qLL, i)) {
+            enqueueLL(qLL, i);
+        }
     }
     // display_queue(qA);
-    // display_queueLL(qLL);
+    printf ("before the sort\n");
+    display_queueLL(qLL);
+    insertionSortLL(qLL);
+    printf ("after the sort\n");
+    display_queueLL(qLL);
     printf("element 652876767: %d\n", search_elementQA(qA, 652876767));
-    printf("element 652876767: %d\n", search_elementLL(qA, 652876767));
+    printf("element 652876767: %d\n", search_elementLL(qLL, 652876767));
 
     fclose(file);
     return 0;
