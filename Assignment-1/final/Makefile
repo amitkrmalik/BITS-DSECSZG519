@@ -11,10 +11,10 @@
 # Output: executable 
 #----------------------------------------------------------------------------#
 
-all : assignment
+all : queue_array
 
 clean :
-	rm assignment
+	rm queue_array
 
 assignment :
-	gcc -Wall -pg main_qa.c queue_array_imp.c -o assignment
+	gcc -Wall -pg main_qa.c queue_array_imp.c -o queue_array
