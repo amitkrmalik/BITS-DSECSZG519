@@ -60,7 +60,6 @@ int main (int argc, char* argv[]) {
                 push_QA(qA, i);
             }    
         }
-        display_queue(qA);
     }
    
 	do {
