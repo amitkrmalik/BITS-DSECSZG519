@@ -57,9 +57,7 @@ int main (int argc, char* argv[]) {
                 char* field = strtok(line, ",");
                 int i = atoi(field);
                 
-                if (!search_elementLL(qLL, i)) {
-                    enqueueLL(qLL, i);
-                }
+                enqueueLL(qLL, i);
             }    
         }
     }

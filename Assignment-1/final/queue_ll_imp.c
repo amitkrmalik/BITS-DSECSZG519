@@ -32,7 +32,7 @@ QueueLL* create_queueLL() {
     return q;
 }
 
-void enqueueLL(QueueLL *q, int value) {
+void enqueueLL_internal(QueueLL *q, int value) {
     Node *new_node = malloc(sizeof(Node));
     new_node->data = value;
     new_node->prev = NULL;
@@ -48,6 +48,14 @@ void enqueueLL(QueueLL *q, int value) {
     }
 }
 
+void enqueueLL(QueueLL *q, int value) {
+    if (!search_elementLL(q, value)) {
+        enqueueLL_internal(q, value);
+    } else {
+        printf ("duplicate entry\n");
+    }
+}
+ 
 int dequeueLL(QueueLL *q) {
     if (q->front == NULL) {
         fprintf(stderr, "Error: Queue is empty\n");
@@ -85,7 +93,7 @@ int search_elementLL(QueueLL *q, int value) {
     if (q->front == NULL) {
         return (0);
     }
-    while (curr != NULL) {
+    while ((curr != NULL) && (curr->next != NULL)) {
         curr = curr->next;
         if (curr->data == value) {
             return (1);
