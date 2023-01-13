@@ -54,11 +54,7 @@ int main(int argc, char* argv[]) {
         }
     }
     // display_queue(qA);
-    printf ("before the sort\n");
-    display_queueLL(qLL);
-    insertionSortLL(qLL);
-    printf ("after the sort\n");
-    display_queueLL(qLL);
+    // display_queueLL(qLL);
     printf("element 652876767: %d\n", search_elementQA(qA, 652876767));
     printf("element 652876767: %d\n", search_elementLL(qLL, 652876767));
 
