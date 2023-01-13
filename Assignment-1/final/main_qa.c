@@ -25,8 +25,8 @@
 int getArrayImpChoice ( void ) {
 	int choice;
 
-	printf("\t1. add single element\n");
-	printf("\t2. delete element\n");
+	printf("\t1. push element\n");
+	printf("\t2. pop element\n");
 	printf("\t3. display\n");
 	printf("\t4. exit\n");
     
@@ -56,10 +56,8 @@ int main (int argc, char* argv[]) {
             while (fgets(line, MAX_LINE_LENGTH, file)) {
                 char* field = strtok(line, ",");
                 int i = atoi(field);
-                printf("string: %s: decimal : %d\n", field,i);
-                if (search_elementQA(qA, i)) {
-                    push_QA(qA, i);
-                }
+                
+                push_QA(qA, i);
             }    
         }
         display_queue(qA);

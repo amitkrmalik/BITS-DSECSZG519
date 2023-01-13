@@ -49,6 +49,14 @@ Queue* init_QA() {
 }
 
 void push_QA(Queue *q, int value) {
+    if (!search_elementQA(q, value)) {
+        push_QA_internal(q, value);
+    } else {
+        printf ("\nduplicate entry.. \n");
+    }
+}
+
+void push_QA_internal(Queue *q, int value) {
     if (q->rear == MAX_ARRAY_SIZE - 1) {
         q->rear = -1;
     }
