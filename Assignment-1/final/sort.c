@@ -1,5 +1,27 @@
+ /*
+----------------------------------------------------------------------------
+ BITS WLIP : Data Science
+ Data Structures and Algorithms Design (S1-22_DSECSZG519)
+ DSAD Group 05
+ 	- AMIT KUMAR (2022cs04025)
+ 	- NARESH KUMAR K S
+ 	- RAJASEKHARUNI KRISHNA ARUN
+----------------------------------------------------------------------------
+ File Name: main.c
+    Main functional module
+     --> while loop to collect the user inputs
+
+ Input: cmd line inputs from user
+ Output: 
+----------------------------------------------------------------------------
+*/ 
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define MAX_LINE_LENGTH 1024
+
 
 struct Node {
     int data;
@@ -44,17 +66,7 @@ void insertionSort(struct Queue *q) {
         else q->front->data = temp;
     }
 }
-/*
-void display_Queue(struct Queue *q) {
-    printf("Queue: ");
-    Node *curr = q->front;
-    while (curr != NULL) {
-        printf("%d ->", curr->data);
-        curr = curr->next;
-    }
-    printf("\n");
-}
-*/
+
 void displayQueue(struct Queue *q) {
     if(q->front == NULL) {
         printf("Queue is empty.\n");
@@ -67,19 +79,6 @@ void displayQueue(struct Queue *q) {
     }
     printf("\n");
 }
-
-/*
-int search_element(struct Queue *q, int value) {
-    Node *curr = q->front;
-    while (curr != NULL) {
-        curr = curr->next;
-        if (curr->data == value) {
-            return (1);
-        }
-    }
-    return(0);
-}
-*/
 
 int search(struct Queue *q, int key) {
     if(q->front == NULL) {
@@ -171,50 +170,6 @@ int binarySearch(struct Queue *q, int key) {
     return -1;
 }
 
-struct Node* middle(struct Node* start, struct Node* last) {
-	if (start == NULL)
-		return NULL;
-
-	struct Node* slow = start;
-	struct Node* fast = start -> next;
-
-	while (fast != last)
-	{
-		fast = fast -> next;
-		if (fast != last)
-		{
-			slow = slow -> next;
-			fast = fast -> next;
-		}
-	}
-
-	return slow;
-}
-
-struct Node* binarySearchiNew(struct Queue *q, int key) {
-	struct Node *start = q->front;
-    struct Node* last = NULL;
-    if (q->front == NULL) {
-        return NULL;
-    }
-
-	do 
-	{
-		struct Node* mid = middle(start, last);
-		if (mid == NULL)
-            return NULL;
-
-		if (mid -> data == key)
-            return mid;
-
-		else if (mid -> data < key)
-            start = mid -> next;
-
-		else
-            last = mid;
-	} while ((last == NULL) || (last != start));
-}
-
 int removeFromSortedList(struct Queue *q, int key) {
     int index = binarySearch(q, key);
     if (index == -1) {
@@ -241,39 +196,81 @@ int removeFromSortedList(struct Queue *q, int key) {
     return value;
 }
 
-int main() {
-    struct Queue *q = createQueue();
-	int index;
-    enqueue(q, 3);
-    enqueue(q, 1);
-    enqueue(q, 2);
-    displayQueue(q);
-    insertionSort(q);
-    displayQueue(q);
-	insertBefore(q,2,5);
-    displayQueue(q);
-	insertAfter(q, 5, 10);
-    displayQueue(q);
-    insertionSort(q);
-    displayQueue(q);
-	index = binarySearch(q, 5);
-	printf("\nindex at %d\n", index);
-	printf("\nremove element 5\n");
-	removeFromSortedList(q,5);
-    displayQueue(q);
-	
-	if (binarySearchiNew(q,5) == NULL) {
-		printf ("key not found\n");
-	} else {
-		printf ("Key present\n");
-	}
+int getArrayImpChoice ( void ) {
+	int choice;
 
-    //printing sorted queue
-    struct Node* current = q->front;
-    while (current != NULL) {
-        printf("%d ", current->data);
-        current = current->next;
-    }
-    return 0;
+	printf("\t1. push element\n");
+	printf("\t2. pop element\n");
+	printf("\t3. display\n");
+	printf("\t4. exit\n");
+    
+    // read back user inputs
+	printf("\nSelect an option: ");
+	scanf("%d", &choice);
+	return choice;
 }
+ 
+int main (int argc, char* argv[]) {
+	int choice;
+    int key;
+    struct Queue *SL = createQueue();
 
+    if (argc > 2) {
+        fprintf(stderr, "Error: Invalid arguments\n\tUsage: %s\n\tUsage: %s <filename>\n", argv[0],argv[0]);
+        return (1);
+    } else if (argc == 2) {
+
+        FILE* file = fopen(argv[1], "r");
+        if (file == NULL) {
+            fprintf(stderr, "Error: Could not open file '%s'\n", argv[1]);
+            return 1;
+        } else {
+
+            char line[MAX_LINE_LENGTH];
+            while (fgets(line, MAX_LINE_LENGTH, file)) {
+                char* field = strtok(line, ",");
+                int i = atoi(field);
+                
+                enqueue(SL, i);
+            }    
+            insertionSort(SL);
+        }
+    }
+   
+	do {
+   	
+        choice = getArrayImpChoice();
+		switch(choice) {
+			case 1:
+                printf("\nEnter the value to insert: ");
+                scanf("%d", &key );
+                enqueue(SL, key);
+                insertionSort(SL);
+                break;
+			case 2:
+                printf("\ncurrent queue is :\n");
+				displayQueue(SL);
+                printf("\nEnter the Key to be removed : ");
+                scanf("%d", &key );
+				removeFromSortedList(SL, key);
+                break;
+			case 3:
+				printf("\ndisplay elements of queue:\n");
+                insertionSort(SL);
+                displayQueue(SL);
+				break;
+			case 4:
+                printf("exit requested\n");
+				break;
+			default:
+				printf("Please enter a valid choice\n");
+				break;
+		}
+		printf("\n");
+
+	} while(choice != 4);
+    free(SL);
+    exit(0);
+
+    return (0);
+}  

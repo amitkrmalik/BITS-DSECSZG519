@@ -16,6 +16,7 @@ all : queue_array queue_ll
 clean :
 	rm queue_array
 	rm queue_ll
+	rm sort
 	rm BST
 
 queue_array:
@@ -23,6 +24,9 @@ queue_array:
 
 queue_ll:
 	gcc -Wall -pg main_qll.c queue_ll_imp.c -o queue_ll
+
+sort:
+	gcc -Wall -pg sort.c -o sort
 
 BST:
 	gcc -Wall -pg BST.c -o BST
