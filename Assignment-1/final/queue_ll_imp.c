@@ -7,9 +7,16 @@
     - NARESH KUMAR K S
     - RAJASEKHARUNI KRISHNA ARUN
 ----------------------------------------------------------------------------
- File Name: queue_array_imp.c
-    Queue Array Implimentation functional module
-     --> while loop to collect the user inputs
+ File Name: queue_ll_imp.c
+    Queue List Implimentation functional module
+     --> Internal function list
+      --> create_queueLL: Init the queue List
+      --> enqueueLL_internal: enqueue a key to the list
+      --> enqueueLL: enqueue a unique key to the list
+      --> dequeueLL : pop an element
+      --> is_emptyLL : is queue empty
+      --> display_queueLL : display elements of queue
+      --> search_elementLL : search element in queue
 
  Input: cmd line inputs from user
  Output:

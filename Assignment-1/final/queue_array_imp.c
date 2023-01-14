@@ -9,36 +9,33 @@
 ----------------------------------------------------------------------------
  File Name: queue_array_imp.c
     Queue Array Implimentation functional module
-     --> while loop to collect the user inputs
+     --> Internal function list
+      --> init_QA : Init the Queue via Array
+      --> push_QA_internal : Push a key to queue
+      --> push_QA : Push an unique element to the queue 
+      --> pop_QA : pop an element
+      --> is_empty_QA : is queue empty
+      --> is_full_QA : is queue full
+      --> size_QA : size of the queue
+      --> search_elementQA : search an element in queue
+      --> display_queue : display queue elements
 
  Input: cmd line inputs from user
  Output: 
 ----------------------------------------------------------------------------
 */
 
-/*---------------------------------------------------------------------------
-            Headers section
------------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include "queue_array_imp.h"
-
-/*---------------------------------------------------------------------------
-            Constant definitions section
------------------------------------------------------------------------------*/
-
-
-/*---------------------------------------------------------------------------
-            Global variables and defintiions
------------------------------------------------------------------------------*/
 
 
 /* 
  * Function name: init_QA
  *  initialise the queue to start storing the data.
  * Input Args: None
- * return: None
+ * return: Queue
  */ 
  
 Queue* init_QA() {
@@ -48,6 +45,14 @@ Queue* init_QA() {
     return q;
 }
 
+/* Function: push_QA
+ *   search the key in the queue, append if not in queue
+ * Input:
+ *  Queue
+ *  Key
+ * Return:
+ *  None
+ */
 void push_QA(Queue *q, int value) {
     if (!search_elementQA(q, value)) {
         push_QA_internal(q, value);
@@ -55,14 +60,28 @@ void push_QA(Queue *q, int value) {
         printf ("\nduplicate entry.. \n");
     }
 }
-
+/* Function: push_QA_internal
+ *   Append the key to queue
+ * Input:
+ *  Queue
+ *  Key
+ * Return:
+ *  None
+ */ 
 void push_QA_internal(Queue *q, int value) {
     if (q->rear == MAX_ARRAY_SIZE - 1) {
         q->rear = -1;
     }
     q->items[++q->rear] = value;
 }
-
+ 
+/* Function: pop_QA
+ *   Remove the key from queue
+ * Input:
+ *  Queue
+ * Return:
+ *  Key
+ */  
 int pop_QA(Queue *q) {
     int value = q->items[q->front++];
     if (q->front == MAX_ARRAY_SIZE) {
@@ -71,19 +90,46 @@ int pop_QA(Queue *q) {
     return value;
 }
 
+/* Function: is_empty_QA
+ *   Queue empty check
+ * Input:
+ *  Queue
+ * Return:
+ *  Int
+ */   
 int is_empty_QA(Queue *q) {
     return q->front > q->rear;
 }
-
+/* Function: is_full_QA
+ *   Queue Full check
+ * Input:
+ *  Queue
+ * Return:
+ *  Int
+ */    
 int is_full_QA(Queue *q) {
     return q->rear - q->front == MAX_ARRAY_SIZE - 1;
 }
-
+/* Function: size_QA
+ *   Size of Queue
+ * Input:
+ *  Queue
+ * Return:
+ *  Int
+ */     
 int size_QA(Queue *q) {
 	return (q->rear - q->front);
 }
 
-
+ /* Function: search_elementQA
+ *   search element in queue
+ * Input:
+ *  Queue
+ *  key
+ * Return:
+ *  Int : 1 is found.
+ *  0 if not found
+ */      
 int search_elementQA(Queue *q, int value) {
     int i = 0;
     for (i = q->front; i <= q->rear; i++) {
@@ -94,6 +140,13 @@ int search_elementQA(Queue *q, int value) {
     return (0);
 }
 
+/* Function: display_queue
+ *   display element in queue
+ * Input:
+ *  Queue
+ * Return:
+ *  Void
+ */ 
 void display_queue(Queue *q) {
     int i = 0;
     printf("Queue: ");
@@ -102,52 +155,3 @@ void display_queue(Queue *q) {
     }
     printf("\n");
 }
-
-#if 0    
-/* 
- * Function name: main
- *  Iterate over the user choice to move the program
- * Input Args: None
- * return: None
- */ 
- 
-void ArrayImpMain (void) {
-	int choice;
-    int value;
-    struct QueueArray* queue = CreateQueueArray(MAX_ARRAY_LEN);
-   
-	do {
-   	
-        choice = getArrayImpChoice();
-		switch(choice) {
-			case 1:
-                printf("\nEnter the value to insert: ");
-                scanf("%d", & value);
-                enqueue(queue, value);
-                break;
-			case 2: 
-                printf("\nEnter the filename to insert elements: TBD");
-                break;
-			case 3:
-                printf("Delete an element is :%d\n", dequeue(queue));
-                break;
-			case 4:
-				printf("\ndisplay elements of queue:\n");
-                display_Array(queue);
-				break;
-
-			case 0:
-                printf("moving back to main menu\n");
-				break;
-
-			default:
-				printf("Please enter a valid choice\n");
-				break;
-		}
-		printf("\n");
-
-	} while(choice != 0);
-	// Free up the allocations done during the program
-    free (q);
-}
-#endif

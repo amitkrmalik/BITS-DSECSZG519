@@ -20,13 +20,13 @@ clean :
 	rm BST
 
 queue_array:
-	gcc -Wall -pg main_qa.c queue_array_imp.c -o queue_array
+	gcc -Wall -g main_qa.c queue_array_imp.c -o queue_array
 
 queue_ll:
-	gcc -Wall -pg main_qll.c queue_ll_imp.c -o queue_ll
+	gcc -Wall -g main_qll.c queue_ll_imp.c -o queue_ll
 
 sort:
-	gcc -Wall -pg sort.c -o sort
+	gcc -Wall -g sort.c -o sort
 
 BST:
-	gcc -Wall -pg BST.c -o BST
+	gcc -Wall -g BST.c -o BST

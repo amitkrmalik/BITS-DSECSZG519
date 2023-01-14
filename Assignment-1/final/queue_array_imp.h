@@ -8,14 +8,12 @@
  	- RAJASEKHARUNI KRISHNA ARUN
 ----------------------------------------------------------------------------
  File Name: queue_array_imp.h
-    Queue Array Implimentation functional module
-     --> while loop to collect the user inputs
-
- Input: cmd line inputs from user
- Output: 
+    -> Queue Array Implimentation functional prototype
+    -> Queue structure 
+    -> Define variables
 ----------------------------------------------------------------------------
 */
-#define MAX_ARRAY_SIZE 100 // Max array length supported
+#define MAX_ARRAY_SIZE 10000 // Max array length supported
 
 
 typedef struct queue {

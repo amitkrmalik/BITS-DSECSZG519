@@ -7,10 +7,14 @@
  	- NARESH KUMAR K S
  	- RAJASEKHARUNI KRISHNA ARUN
 ----------------------------------------------------------------------------
- File Name: main.c
+ File Name: main_qll.c
     Main functional module
      --> while loop to collect the user inputs
-
+      --> Call for Push element from user input
+      --> call for pop element
+      --> parse the user inputs from the file
+      --> display the elements
+ 
  Input: cmd line inputs from user
  Output: 
 ----------------------------------------------------------------------------
@@ -20,8 +24,15 @@
 #include <string.h>
 #include "queue_ll_imp.h"
 
+/* Max file length */
 #define MAX_LINE_LENGTH 1024
-
+/* Function: 
+ *  getArrayImpChoice
+ * Input: 
+ *  None
+ * Return:
+ *  Int : choice based on user inputs
+ */ 
 int getArrayImpChoice ( void ) {
 	int choice;
 
@@ -35,7 +46,15 @@ int getArrayImpChoice ( void ) {
 	scanf("%d", &choice);
 	return choice;
 }
- 
+
+/* 
+ * Function:
+ *  main
+ * Input: 
+ *  filename for inputs [optional]
+ * return:
+ *  Int: exit status
+ */    
 int main (int argc, char* argv[]) {
 	int choice;
     int key;
@@ -46,6 +65,9 @@ int main (int argc, char* argv[]) {
         return (1);
     } else if (argc == 2) {
 
+        /* read the file for inputs and append elements in structure.
+         * Duplicate entry shall be dropped as part of the append/push
+         */
         FILE* file = fopen(argv[1], "r");
         if (file == NULL) {
             fprintf(stderr, "Error: Could not open file '%s'\n", argv[1]);

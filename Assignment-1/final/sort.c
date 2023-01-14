@@ -7,12 +7,22 @@
  	- NARESH KUMAR K S
  	- RAJASEKHARUNI KRISHNA ARUN
 ----------------------------------------------------------------------------
- File Name: main.c
-    Main functional module
-     --> while loop to collect the user inputs
+ File Name: sort.c
+    -> Structure definetion
+    -> Function:
+     --> createQueue : Init the list
+     --> enqueue : Enqueue element to list
+     --> insertionSort : sort the list
+     --> displayQueue : display the list elements
+     --> search : search an element in list
+     --> insertBefore : Insert an element before
+     --> insertAfter : Insert an element after
+     --> getSize : size of the list
+     --> binarySearch : binary search an element
+     --> removeFromSortedList : remove from sorted list
+     --> main : main driver function
 
- Input: cmd line inputs from user
- Output: 
+
 ----------------------------------------------------------------------------
 */ 
 
@@ -20,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Max string length for file input */
 #define MAX_LINE_LENGTH 1024
 
 
@@ -34,12 +45,27 @@ struct Queue {
     struct Node *rear;
 };
 
-struct Queue *createQueue() {
+/* 
+ * Function name: createQueue
+ *  initialise the Linked list to start storing the elements.
+ * Input Args: None
+ * return: Queue
+ */ 
+struct Queue *createQueue(void) {
     struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
     q->front = q->rear = NULL;
     return q;
 }
 
+/* 
+ * Function name: enqueue
+ *  enqueue an unsorted element to the linked list
+ * Input Args: 
+ *  Queue
+ *  Key
+ * return: 
+ *  Void
+ */ 
 void enqueue(struct Queue *q, int value) {
     struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
     temp->data = value;
@@ -54,6 +80,14 @@ void enqueue(struct Queue *q, int value) {
     q->rear = temp;
 }
 
+/* 
+ * Function name: insertionSort
+ *  sort the elements in assending order of a given queue
+ * Input Args: 
+ *  Queue
+ * return: 
+ *  Void
+ */ 
 void insertionSort(struct Queue *q) {
     if (q->front == q->rear) return;
     struct Node *current, *iter;
@@ -67,6 +101,14 @@ void insertionSort(struct Queue *q) {
     }
 }
 
+/* 
+ * Function name: displayQueue
+ *  display elements of list
+ * Input Args: 
+ *  Queue
+ * return: 
+ *  Void
+ */  
 void displayQueue(struct Queue *q) {
     if(q->front == NULL) {
         printf("Queue is empty.\n");
@@ -80,6 +122,15 @@ void displayQueue(struct Queue *q) {
     printf("\n");
 }
 
+/* 
+ * Function name: search
+ *  search element in a list
+ * Input Args: 
+ *  Queue
+ *  key
+ * return: 
+ *  index of element
+ */   
 int search(struct Queue *q, int key) {
     if(q->front == NULL) {
         return -1;
@@ -96,6 +147,16 @@ int search(struct Queue *q, int key) {
     return -1;
 }
 
+/* 
+ * Function name: insertBefore
+ *  insert the element before the key
+ * Input Args: 
+ *  Queue
+ *  search key
+ *  key
+ * return: 
+ *  void
+ */    
 void insertBefore(struct Queue *q, int key, int value) {
     int index = search(q, key);
     if (index == -1) {
@@ -114,7 +175,16 @@ void insertBefore(struct Queue *q, int key, int value) {
     current->prev->next = temp;
     current->prev = temp;
 }
-
+/* 
+ * Function name: insertAfter
+ *  insert the element after the key
+ * Input Args: 
+ *  Queue
+ *  search key
+ *  key
+ * return: 
+ *  void
+ */     
 void insertAfter(struct Queue *q, int key, int value) {
     int index = search(q, key);
     if (index == -1) {
@@ -134,6 +204,14 @@ void insertAfter(struct Queue *q, int key, int value) {
     current->next = temp;
 }
 
+/* 
+ * Function name: getSize
+ *  size of the linked list
+ * Input Args: 
+ *  Queue
+ * return: 
+ *  int size
+ */ 
 int getSize(struct Queue *q) {
     int size = 0;
     struct Node *current = q->front;
@@ -144,6 +222,15 @@ int getSize(struct Queue *q) {
     return size;
 }
 
+/* 
+ * Function name: binarySearch
+ *  search key in linked list
+ * Input Args: 
+ *  Queue
+ *  key
+ * return: 
+ *  int index.
+ */  
 int binarySearch(struct Queue *q, int key) {
     if (q->front == NULL) {
         return -1;
@@ -170,6 +257,15 @@ int binarySearch(struct Queue *q, int key) {
     return -1;
 }
 
+/* 
+ * Function name: removeFromSortedList
+ *  remove element from a sorted list
+ * Input Args: 
+ *  Queue
+ *  key to be removed
+ * return: 
+ *  int key value.
+ */   
 int removeFromSortedList(struct Queue *q, int key) {
     int index = binarySearch(q, key);
     if (index == -1) {
@@ -196,6 +292,13 @@ int removeFromSortedList(struct Queue *q, int key) {
     return value;
 }
 
+/* Function: 
+ *  getArrayImpChoice
+ * Input: 
+ *  None
+ * Return:
+ *  Int : choice based on user inputs
+ */     
 int getArrayImpChoice ( void ) {
 	int choice;
 
@@ -209,7 +312,14 @@ int getArrayImpChoice ( void ) {
 	scanf("%d", &choice);
 	return choice;
 }
- 
+/* 
+ * Function:
+ *  main
+ * Input: 
+ *  filename for inputs [optional]
+ * return:
+ *  Int: exit status
+ */     
 int main (int argc, char* argv[]) {
 	int choice;
     int key;

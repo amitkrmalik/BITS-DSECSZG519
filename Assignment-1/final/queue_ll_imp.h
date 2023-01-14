@@ -8,11 +8,8 @@
     - RAJASEKHARUNI KRISHNA ARUN
 ----------------------------------------------------------------------------
  File Name: queue_ll_imp.h
-    Queue Array Implimentation functional module
-     --> while loop to collect the user inputs
-
- Input: cmd line inputs from user
- Output:
+    -> Queue Linked list Implimentation functional prototype
+    -> Queue structure 
 ----------------------------------------------------------------------------
 */
 
