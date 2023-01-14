@@ -184,38 +184,28 @@ int main(int argc,char* argv[]) {
         break;
         
         case 2:
-        /*
-        FILE* ptr;
-        char ch;
-        prinf("File Name : %s ",argv[1]);
-        // Opening file in reading mode
-        ptr = fopen(argv[1], "r");
- 
-        if (NULL == ptr) {
-        printf("file can't be opened \n");
-        break;
+        FILE* file = fopen(argv[1], "r");
+        if (file == NULL) {
+            fprintf(stderr, "Error: Could not open file '%s'\n", argv[1]);
+            return 1;
+        } 
+        else {
+         char line[MAX_LINE_LENGTH];
+         while (fgets(line, MAX_LINE_LENGTH, file)) {
+          char* field = strtok(line, ",");
+          int i = atoi(field);
+          if(root==NULL)
+          {
+             root = insert(root,i); 
+          }
+             else
+             {
+                 
+                insert(root,i); 
+             }
+         }
         }
- 
-        printf("content of this file are \n");
- 
-    // Printing what is written in file
-    // character by character using loop.
-        printf("\nNumbers:\n");
-        while ( (num = getw(fptr)) != EOF ) {
-        printf("%d\n", num);
-        
-        if(root==NULL)
-        {
-        root = insert(root,num);
-
-        }
-        else
-        {
-        insert(root,num);
-        }
-        
-        }
-        */
+            
         break;
 
         
