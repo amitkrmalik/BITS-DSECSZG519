@@ -18,6 +18,7 @@ clean :
 	rm queue_ll
 	rm sort
 	rm BST
+	rm time*
 
 queue_array:
 	gcc -Wall -g main_qa.c queue_array_imp.c -o queue_array

@@ -29,9 +29,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* Max string length for file input */
 #define MAX_LINE_LENGTH 1024
+
+#define TIME_Push "time_sort_push.csv"
+#define TIME_Pop "time_sort_pop.csv"
+#define TIME_search "time_sort_ser.csv"
+#define TIME_sort "time_sort_sort.csv"
 
 
 struct Node {
@@ -67,17 +73,29 @@ struct Queue *createQueue(void) {
  *  Void
  */ 
 void enqueue(struct Queue *q, int value) {
+    clock_t t;
+    double time_taken;
+    FILE *tp = fopen(TIME_Push, "a+");
+    t = clock();
     struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
     temp->data = value;
     temp->prev = NULL;
     temp->next = NULL;
     if(q->rear == NULL) {
         q->front = q->rear = temp;
+        t = clock() - t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        fprintf(tp,"%f,\n", time_taken);
+        fclose(tp);
         return;
     }
     q->rear->next = temp;
     temp->prev = q->rear;
     q->rear = temp;
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(tp,"%f,\n", time_taken);
+    fclose(tp);
 }
 
 /* 
@@ -89,6 +107,10 @@ void enqueue(struct Queue *q, int value) {
  *  Void
  */ 
 void insertionSort(struct Queue *q) {
+    clock_t t;
+    double time_taken;
+    FILE *ti = fopen(TIME_sort, "a+");
+    t = clock();
     if (q->front == q->rear) return;
     struct Node *current, *iter;
     for (current = q->front->next; current != NULL; current = current->next) {
@@ -99,6 +121,10 @@ void insertionSort(struct Queue *q) {
         if (iter != NULL) iter->next->data = temp;
         else q->front->data = temp;
     }
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(ti,"%f,\n", time_taken);
+    fclose(ti);
 }
 
 /* 
@@ -232,7 +258,15 @@ int getSize(struct Queue *q) {
  *  int index.
  */  
 int binarySearch(struct Queue *q, int key) {
+    clock_t t;
+    double time_taken;
+    FILE *ts = fopen(TIME_search, "a+");
+    t = clock();
     if (q->front == NULL) {
+        t = clock() - t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        fprintf(ts,"%f,\n", time_taken);
+        fclose(ts);
         return -1;
     }
     int left = 0;
@@ -247,6 +281,10 @@ int binarySearch(struct Queue *q, int key) {
             printf ("data : %d -> ", current->data);
         }
         if (current->data == key) {
+            t = clock() - t;
+            time_taken = ((double)t)/CLOCKS_PER_SEC;
+            fprintf(ts,"%f,\n", time_taken);
+            fclose(ts);
             return mid;
         } else if (current->data > key) {
             right = mid - 1;
@@ -254,6 +292,10 @@ int binarySearch(struct Queue *q, int key) {
             left = mid + 1;
         }
     }
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(ts,"%f,\n", time_taken);
+    fclose(ts);
     return -1;
 }
 
@@ -267,9 +309,17 @@ int binarySearch(struct Queue *q, int key) {
  *  int key value.
  */   
 int removeFromSortedList(struct Queue *q, int key) {
+    clock_t t;
+    double time_taken;
+    FILE *to = fopen(TIME_Pop, "a+");
+    t = clock();
     int index = binarySearch(q, key);
     if (index == -1) {
         printf("Key not found\n");
+        t = clock() - t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        fprintf(to,"%f,\n", time_taken);
+        fclose(to);
         return -1;
     }
     struct Node *current = q->front;
@@ -289,6 +339,10 @@ int removeFromSortedList(struct Queue *q, int key) {
     }
     int value = current->data;
     free(current);
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(to,"%f,\n", time_taken);
+    fclose(to);
     return value;
 }
 

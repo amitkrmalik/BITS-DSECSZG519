@@ -29,8 +29,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <time.h>
 #include "queue_ll_imp.h"
 
+#define TIME_Push "time_ql_push.csv"
+#define TIME_Pop "time_ql_pop.csv"
+#define TIME_search "time_ql_ser.csv"
 
 QueueLL* create_queueLL() {
     QueueLL *q = malloc(sizeof(QueueLL));
@@ -40,6 +44,10 @@ QueueLL* create_queueLL() {
 }
 
 void enqueueLL_internal(QueueLL *q, int value) {
+    clock_t t;
+    double time_taken;
+    FILE *tp = fopen(TIME_Push, "a+");
+    t = clock();
     Node *new_node = malloc(sizeof(Node));
     new_node->data = value;
     new_node->prev = NULL;
@@ -53,6 +61,10 @@ void enqueueLL_internal(QueueLL *q, int value) {
         new_node->prev = q->rear;
         q->rear = new_node;
     }
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(tp,"%f,\n", time_taken);
+    fclose(tp);
 }
 
 void enqueueLL(QueueLL *q, int value) {
@@ -64,6 +76,10 @@ void enqueueLL(QueueLL *q, int value) {
 }
  
 int dequeueLL(QueueLL *q) {
+    clock_t t;
+    double time_taken;
+    FILE *to = fopen(TIME_Pop, "a+");
+    t = clock(); 
     if (q->front == NULL) {
         fprintf(stderr, "Error: Queue is empty\n");
         exit(1);
@@ -78,6 +94,10 @@ int dequeueLL(QueueLL *q) {
         q->front->prev = NULL;
     }
     free(temp);
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(to,"%f,\n", time_taken);
+    fclose(to); 
     return value;
 }
 
@@ -96,15 +116,31 @@ void display_queueLL(QueueLL *q) {
 }
 
 int search_elementLL(QueueLL *q, int value) {
+    clock_t t;
+    double time_taken;
+    FILE *ts = fopen(TIME_search, "a+");
+    t = clock();
     Node *curr = q->front;
     if (q->front == NULL) {
+        t = clock() - t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        fprintf(ts,"%f,\n", time_taken);
+        fclose(ts);
         return (0);
     }
     while ((curr != NULL) && (curr->next != NULL)) {
         curr = curr->next;
         if (curr->data == value) {
+            t = clock() - t;
+            time_taken = ((double)t)/CLOCKS_PER_SEC;
+            fprintf(ts,"%f,\n", time_taken);
+            fclose(ts);
             return (1);
         }
     }
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(ts,"%f,\n", time_taken);
+    fclose(ts);
     return(0);
 }

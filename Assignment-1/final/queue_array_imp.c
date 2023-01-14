@@ -28,7 +28,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <time.h>
 #include "queue_array_imp.h"
+
+#define TIME_Push "time_qa_push.csv"
+#define TIME_Pop "time_qa_pop.csv"
+#define TIME_search "time_qa_ser.csv"
 
 
 /* 
@@ -54,8 +59,16 @@ Queue* init_QA() {
  *  None
  */
 void push_QA(Queue *q, int value) {
+    clock_t t;
+    double time_taken;
+    FILE *tp = fopen(TIME_Push, "a+");
     if (!search_elementQA(q, value)) {
+        t = clock();
         push_QA_internal(q, value);
+        t = clock() - t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        fprintf(tp,"%f,\n", time_taken);
+        fclose(tp);
     } else {
         printf ("\nduplicate entry.. \n");
     }
@@ -83,10 +96,18 @@ void push_QA_internal(Queue *q, int value) {
  *  Key
  */  
 int pop_QA(Queue *q) {
+    clock_t t;
+    double time_taken;
+    FILE *to = fopen(TIME_Pop, "a+");
+    t = clock();
     int value = q->items[q->front++];
     if (q->front == MAX_ARRAY_SIZE) {
         q->front = 0;
     }
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(to,"%f,\n", time_taken);
+    fclose(to);
     return value;
 }
 
@@ -132,11 +153,24 @@ int size_QA(Queue *q) {
  */      
 int search_elementQA(Queue *q, int value) {
     int i = 0;
+    clock_t t;
+    double time_taken;
+    FILE *ts = fopen(TIME_search, "a+");
+    t = clock();
     for (i = q->front; i <= q->rear; i++) {
         if (q->items[i] == value) {
+            t = clock() - t;
+            time_taken = ((double)t)/CLOCKS_PER_SEC;
+            fprintf(ts,"%f,\n", time_taken);
+            fclose(ts);
             return (1);
         }
-    }
+    }             
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    fprintf(ts,"%f,\n", time_taken);
+    fclose(ts);
+
     return (0);
 }
 
