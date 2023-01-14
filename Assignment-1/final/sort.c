@@ -74,7 +74,7 @@ void displayQueue(struct Queue *q) {
     }
     struct Node *current = q->front;
     while(current != NULL) {
-        printf("%d ", current->data);
+        printf("%d -> ", current->data);
         current = current->next;
     }
     printf("\n");

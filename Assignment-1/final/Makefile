@@ -11,7 +11,7 @@
 # Output: executable 
 #----------------------------------------------------------------------------#
 
-all : queue_array queue_ll
+all : queue_array queue_ll sort BST
 
 clean :
 	rm queue_array
